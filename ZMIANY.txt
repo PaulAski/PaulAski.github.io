@@ -1,0 +1,26 @@
+A-SCI Paweł Adamski - potwierdzenie zawartości pakietu
+Wersja: 2026-08-11-r5
+
+W tej wersji znajdują się:
+- strona polska: /index.html
+- strona angielska: /en/index.html
+- strona francuska: /fr/index.html
+- statyczna polityka prywatności PL: /privacy-policy/index.html
+- statyczna polityka prywatności EN: /en/privacy-policy/index.html
+- statyczna polityka prywatności FR: /fr/privacy-policy/index.html
+- osobny panel Testy i QA z czterema obszarami weryfikacji
+- właściwa ikona domku Yearborne
+- powiększone i estetycznie wykadrowane logo A-SCI PROJECTS
+- całkowicie przebudowana mapa dostarczania produktu z czytelnym kierunkiem przepływu
+- nowe, spójne wizualnie strzałki pomiędzy etapami procesu
+- przesunięte i przeprojektowane panele przy wizualizacji Yearborne
+- usunięty dodatkowy opis obok przycisku polityki prywatności
+- dopracowana stopka z nawigacją, kontaktem i wyborem języka
+- przebudowane proporcje sekcji Testy i QA: treść jest pierwszoplanowa, a panel pozostaje czytelnym dowodem kompetencji
+- zwiększona czytelność opisów i etykiet w panelu QA
+- jeden wspólny kadr logo A-SCI Projects w nagłówku, stopce i nagłówkach polityki prywatności
+- nowe hasło Yearborne: „Jedna decyzja. Inna przyszłość.” wraz z wersjami EN i FR
+- subtelna poświata pod telefonem w prezentacji Yearborne
+- nowy favicon „A–” nawiązujący bezpośrednio do logo A-SCI
+- kontrola wizualna na szerokim ekranie i przy szerokości telefonu 390 px
+- skorygowane centrowanie logo prawo-lewo bez zmiany kadrowania góra-dół

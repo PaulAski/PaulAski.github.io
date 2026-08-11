@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://paulaski.github.io/sitemap.xml
