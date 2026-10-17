@@ -1,21 +1,33 @@
 A-SCI Paweł Adamski - potwierdzenie zawartości pakietu
-Wersja: 2026-10-16-r6
+Wersja: 2026-10-17-r7
 
-Zmiany w wersji r6:
+Zmiany w wersji r7 (polityka prywatności PL, EN, FR):
+- granatowy pasek nawigacji jak na stronie głównej: animowane logo, linia ze światłem, menu, wybór języka, szklany pasek przy przewijaniu w górę
+- animowany nagłówek: ikona Yearborne bez czarnej ramki, poświata, obracające się orbity, złote świetliki, połysk, pochylenie ikony za kursorem
+- etykiety dokumentu: data obowiązywania, liczba sekcji, czas czytania
+- przyciski „Spis treści” i „Wróć na stronę A-SCI”
+- spis treści z numeracją i podświetleniem aktualnie czytanej sekcji
+- pasek postępu czytania u góry ekranu
+- karta z danymi dokumentu (data, aplikacja, wydawca, kontakt)
+- wyróżnione numery sekcji i linie oddzielające sekcje, płynne pojawianie się treści przy przewijaniu
+- stopka jak na stronie głównej: logo przenoszące na górę, linki, kontakt, wybór języka
+- przy ustawieniu „ogranicz ruch” animacje są wyłączone, a treść widoczna od razu
+- nowy plik: assets/yearborne-icon-hero.jpg
+- kontrola wizualna: PL, EN, FR przy szerokościach 360–1920 px, także z fontem Georgia (Windows, macOS)
+
+Zmiany w wersji r6 (strona główna):
 - animowane, wektorowe logo A-SCI PROJECTS w lewym górnym rogu (falowanie i połysk, bez białej ramki)
 - animowany pasek nawigacji: linia ze światłem, płynne wejście menu, połysk na przycisku „Poznaj A-SCI”
 - szklany pasek nawigacji przyklejony do góry ekranu przy przewijaniu w górę, chowany przy przewijaniu w dół
 - przycisk „na górę” w prawym dolnym rogu: falujące logo na granatowej karcie, po najechaniu strzałka w górę i napis „Na górę” (PL), „Back to top” (EN), „Haut de page” (FR)
 - na telefonach strzałka w przycisku „na górę” jest widoczna stale
 - logo w stopce przenosi na początek strony i pokazuje strzałkę po najechaniu
-- polityki prywatności: granatowe logo wektorowe i przycisk „na górę”
 - nagłówek i opis na górze strony nie nachodzą na „Mapę dostarczania produktu” (laptopy 1180–1440 px)
 - przycisk „Poznaj Yearborne” nie nachodzi na grafikę na telefonach (390–430 px)
 - „Mapa dostarczania produktu”: napisy mieszczą się w kafelkach, etykiety między kafelkami są w całości widoczne
 - ikona Yearborne 58 KB zamiast 2,7 MB
 - statyczne logo przy ustawieniu „ogranicz ruch” i na urządzeniach bez WebGL
-- nowe pliki: assets/a-sci-premium.js, assets/a-sci-logo-white.svg, assets/a-sci-logo-navy.svg, assets/yearborne-icon-384.jpg
-- kontrola wizualna: PL, EN, FR przy szerokościach 360–1920 px, także z fontem Georgia (Windows, macOS)
+- nowe pliki: assets/a-sci-premium.js, assets/a-sci-logo-white.svg, assets/yearborne-icon-384.jpg
 
 W tej wersji znajdują się:
 - strona polska: /index.html
