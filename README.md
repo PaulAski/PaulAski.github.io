@@ -1,6 +1,6 @@
 # A-SCI Paweł Adamski - strona firmowa
 
-Wersja pakietu: **2026-10-17-r7**
+Wersja pakietu: **2026-10-17-r8**
 
 Pakiet jest gotowy do publikacji jako statyczna strona GitHub Pages pod adresem `https://paulaski.github.io/`.
 
@@ -14,7 +14,17 @@ Pakiet jest gotowy do publikacji jako statyczna strona GitHub Pages pod adresem 
 
 Nie przesyłaj samego archiwum ZIP. Strona nie wymaga Node.js, Reacta ani procesu budowania.
 
-Arkusz stylów i skrypt mają w adresie dopisek `?v=r7`, więc odwiedzający od razu dostaną nową wersję. Jeśli po publikacji widzisz starą wersję, odśwież stronę klawiszami Ctrl+F5 (Mac: Cmd+Shift+R).
+Arkusz stylów i skrypt mają w adresie dopisek `?v=r8`, więc odwiedzający od razu dostaną nową wersję. Jeśli po publikacji widzisz starą wersję, odśwież stronę klawiszami Ctrl+F5 (Mac: Cmd+Shift+R).
+
+## Nowości w r8 – strona główna, warstwy
+
+- sekcja Kompetencje wjeżdża na nagłówek strony jak karta (zaokrąglone rogi, cień); nagłówek w tym czasie lekko się oddala i przyciemnia,
+- Proces: 5 etapów układa się w talię; każdy kolejny nachodzi na poprzedni tylko dolnym marginesem, więc nazwy i opisy zostają widoczne; tekst po lewej stoi w miejscu, pasek postępu wypełnia się do ✓, licznik pokazuje etap (01–05), a cała talia odjeżdża razem,
+- na telefonie 4 karty Kompetencji układają się w talię; przykryte karty lekko się oddalają,
+- Yearborne: telefon, karty „Wybór” i „Historia” oraz okręgi przesuwają się z różną prędkością (głębia); na komputerze telefon pochyla się za kursorem; liczby 78 / 64 / 91 odliczają się przy pierwszym pokazaniu,
+- czytelność: tekst nie jest zasłaniany, zanim da się go przeczytać; na zbyt niskich ekranach talia wyłącza się sama i etapy są zwykłą listą,
+- przy ustawieniu „ogranicz ruch” i bez JavaScriptu układ jest statyczny,
+- obciążenie przeglądarki przy przewijaniu na poziomie poprzedniej wersji.
 
 ## Nowości w r7 – polityka prywatności
 

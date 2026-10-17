@@ -1354,3 +1354,83 @@ section[id] { scroll-margin-top: 82px; }
 }
 .pv-footer { padding-left: max(32px, calc((100vw - 1180px) / 2)); padding-right: max(32px, calc((100vw - 1180px) / 2)); }
 @media (max-width: 640px) { .pv-footer { padding-left: 20px; padding-right: 20px; } }
+
+/* ==========================================================================
+   r8 · warstwy: Kompetencje wjeżdżają na hero jak karta, talia etapów w Procesie,
+        talia kart usług na telefonie, głębia w sekcji Yearborne
+   Ruch dokłada a-sci-premium.js (klasa .fx-on); bez JS i przy „ogranicz ruch” układ jest statyczny.
+   ========================================================================== */
+:root { --sheet: 40px; }
+
+/* ---- hero pod kartą Kompetencji ---- */
+.hero { min-height: calc(840px + var(--sheet)); }
+.hero > .hero-footer { bottom: calc(31px + var(--sheet)); }
+.services {
+  position: relative; z-index: 2;
+  margin-top: calc(-1 * var(--sheet));
+  border-radius: var(--sheet) var(--sheet) 0 0;
+  background: var(--paper);
+  box-shadow: 0 -26px 60px rgba(1,8,18,.30), 0 -2px 14px rgba(1,8,18,.16);
+}
+.hero-dim { position: absolute; z-index: 6; inset: 0; pointer-events: none; background: #01060d; opacity: 0; }
+.flow-stage { transform-origin: 50% 0; }
+
+/* ---- Proces: talia etapów ---- */
+.process-flow.deck-on { display: block; margin-bottom: calc(-1 * var(--hold, 0px)); }
+.process { isolation: isolate; }
+.deck-on .process-flow-head { position: sticky; z-index: 8; top: var(--deck-head, 96px); margin: 0; padding-top: 14px; background: #0a3154; }
+.deck-on .deck-slot, .deck-on .deck-head-slot { position: relative; }
+.deck-on .process-step {
+  position: sticky; top: var(--t, 0px);
+  border-color: rgba(139,203,255,.16);
+  background: radial-gradient(circle at 12% 50%, rgba(69,160,225,.07), transparent 25%), linear-gradient(100deg, #06213a, #082c4b);
+  box-shadow: 0 -16px 34px rgba(1,10,22,.42), 0 18px 36px rgba(2,18,31,.20), inset 0 1px 0 rgba(255,255,255,.04);
+  transition: border-color .45s ease, box-shadow .45s ease;
+}
+.deck-on .process-step:last-child:not(.is-last) { padding-right: 22px; }
+.deck-on .process-step.is-last { border-color: rgba(80,196,154,.26); }
+.deck-on .process-connector { display: none; }
+.deck-on .process-step .step-port { transition: border-color .45s ease, box-shadow .45s ease; }
+.deck-on .process-step.is-current { border-color: rgba(139,203,255,.46); box-shadow: 0 -16px 36px rgba(1,10,22,.46), 0 22px 44px rgba(2,18,31,.28), 0 0 0 1px rgba(139,203,255,.08), inset 0 1px 0 rgba(255,255,255,.07); }
+.deck-on .process-step.is-current .step-port { border-color: #9ad6ff; box-shadow: 0 0 0 6px rgba(10,49,84,.84), 0 0 26px rgba(109,190,246,.50), inset 0 1px 0 rgba(255,255,255,.08); }
+.deck-on .process-step.is-last.is-current { border-color: rgba(80,196,154,.55); }
+.deck-bar { position: relative; flex: 1; height: 2px; margin: 0 4px; border-radius: 2px; background: rgba(139,203,255,.14); overflow: hidden; }
+.deck-bar i { position: absolute; inset: 0; border-radius: inherit; transform-origin: left center; transform: scaleX(var(--p, 0)); background: linear-gradient(90deg, #3b9eff, #9ad6ff 70%, #73d9b2); box-shadow: 0 0 10px rgba(87,177,238,.6); }
+.deck-on .process-complete { transform: translateY(-50%) scale(.4); opacity: .35; transition: transform .6s cubic-bezier(.2,.8,.2,1.5), opacity .4s ease, box-shadow .6s ease, background .6s ease; }
+.deck-on.is-done .process-complete { transform: translateY(-50%) scale(1); opacity: 1; background: rgba(80,196,154,.16); box-shadow: 0 0 0 6px rgba(80,196,154,.07), 0 0 24px rgba(80,196,154,.45); }
+@media (min-width: 901px) {
+  .fx-on .process-copy { position: sticky; top: 132px; align-self: start; }
+}
+
+/* ---- Kompetencje na telefonie: talia kart ---- */
+@media (max-width: 640px) {
+  :root { --sheet: 28px; }
+  .hero > .hero-footer { bottom: calc(25px + var(--sheet)); }
+  .services-grid.stack-on { display: block; padding-bottom: 46px; border: 0; background: none; }
+  .stack-on .service-card {
+    position: sticky; top: calc(76px + var(--i, 0) * 14px);
+    margin-bottom: 18px;
+    border: 1px solid rgba(8,40,73,.12); border-radius: 20px;
+    box-shadow: 0 -12px 30px rgba(8,40,73,.10), 0 18px 40px rgba(8,40,73,.08);
+    transform-origin: 50% 0;
+  }
+  .stack-on .service-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #082849; opacity: var(--dim, 0); pointer-events: none; }
+}
+
+/* ---- Yearborne: głębia ---- */
+.fx-on .phone { transform: translate(-50%, -50%) perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-3deg); translate: 0 var(--py, 0px); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.fx-on .float-one { translate: var(--fx1, 0px) var(--fy1, 0px); }
+.fx-on .float-two { translate: var(--fx2, 0px) var(--fy2, 0px); }
+.fx-on .orbit-one { translate: 0 var(--oy1, 0px); }
+.fx-on .orbit-two { translate: 0 var(--oy2, 0px); }
+.fx-on .yearborne-visual::after { translate: 0 var(--gy, 0px); }
+
+/* ---- przesunięcia hero, gdy karta wjeżdża (padding pod zakładkę karty) ---- */
+@media (max-width: 1180px) { .hero { min-height: 0; padding-bottom: calc(82px + var(--sheet)); } }
+@media (max-width: 900px) { .hero { padding-bottom: calc(80px + var(--sheet)); } }
+@media (max-width: 640px) { .hero { padding-bottom: calc(66px + var(--sheet)); } }
+
+@media print {
+  .services { margin-top: 0; box-shadow: none; border-radius: 0; }
+  .hero-dim { display: none; }
+}

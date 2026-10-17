@@ -1,5 +1,13 @@
 A-SCI Paweł Adamski - potwierdzenie zawartości pakietu
-Wersja: 2026-10-17-r7
+Wersja: 2026-10-17-r8
+
+Zmiany w wersji r8 (strona główna PL, EN, FR – warstwy):
+- sekcja Kompetencje wjeżdża na nagłówek strony jak karta; nagłówek lekko się oddala i przyciemnia
+- Proces: talia 5 etapów z paskiem postępu, licznikiem etapu i znacznikiem ✓; nazwy i opisy etapów zawsze widoczne; tekst po lewej przyklejony
+- telefon: talia 4 kart Kompetencji, przykryte karty lekko się oddalają
+- Yearborne: głębia (telefon, karty i okręgi z różną prędkością), pochylenie telefonu za kursorem, odliczanie 78 / 64 / 91
+- na zbyt niskich ekranach talia wyłącza się automatycznie; „ogranicz ruch” i brak JavaScriptu: układ statyczny
+- kontrola: PL, EN, FR przy szerokościach 360–1920 px, także z fontem Georgia; talia nigdy nie zasłania tekstu etapów
 
 Zmiany w wersji r7 (polityka prywatności PL, EN, FR):
 - granatowy pasek nawigacji jak na stronie głównej: animowane logo, linia ze światłem, menu, wybór języka, szklany pasek przy przewijaniu w górę

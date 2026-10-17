@@ -1,4 +1,4 @@
-/*! A-SCI Projects · premium logo (nagłówek, stopka), przycisk „na górę”, inteligentny pasek nawigacji, animacje polityki prywatności. Bez zależności. r7 */
+/*! A-SCI Projects · premium logo (nagłówek, stopka), przycisk „na górę”, inteligentny pasek nawigacji, animacje polityki prywatności, warstwy strony głównej. Bez zależności. r8 */
 (function () {
 'use strict';
 if (window.ASCI_SITE) return;
@@ -438,6 +438,217 @@ function sparks(art) {
   update();
 }
 
+// ---------------- r8 · warstwy na stronie głównej ----------------
+// jeden wspólny, oszczędny harmonogram: liczy tylko moduły, których sekcja jest blisko ekranu
+function layers() {
+  if (REDUCE || !document.querySelector('.hero')) return;
+  document.documentElement.classList.add('fx-on');
+  var mods = [heroSheet(), processDeck(), servicesStack(), yearborneDepth()].filter(Boolean);
+  if (!mods.length) return;
+  var ticking = false;
+  function frame() { ticking = false; var vh = window.innerHeight; for (var i = 0; i < mods.length; i++) if (mods[i].near) mods[i].update(vh); }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  mods.forEach(function (m) {
+    m.near = true;
+    if (window.IntersectionObserver) new IntersectionObserver(function (en) { m.near = en[en.length - 1].isIntersecting; if (m.near) req(); }, { rootMargin: '300px 0px' }).observe(m.el);
+  });
+  var rt = 0;
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { mods.forEach(function (m) { if (m.layout) m.layout(); }); req(); }, 120); });
+  window.addEventListener('load', function () { mods.forEach(function (m) { if (m.layout) m.layout(); }); req(); });
+  req();
+}
+
+// 1) Kompetencje wjeżdżają na hero jak karta; hero zostaje z tyłu, lekko się oddala i przyciemnia
+function heroSheet() {
+  var hero = document.querySelector('.hero');
+  if (!hero) return null;
+  var dim = document.createElement('div');
+  dim.className = 'hero-dim'; dim.setAttribute('aria-hidden', 'true'); hero.appendChild(dim);
+  var copy = hero.querySelector('.hero-copy'), stage = hero.querySelector('.flow-stage'), foot = hero.querySelector('.hero-footer'), glow = hero.querySelector('.hero-glow');
+  var last = -1;
+  return { el: hero, update: function (vh) {
+    var r = hero.getBoundingClientRect(), h = r.height, s = Math.max(0, -r.top);
+    if (s > h + 40 && last === 1) return;
+    var fits = h <= vh + 80;                          // hero mieści się na ekranie (komputer) → paralaksa treści
+    var start = fits ? 0 : h - vh;                    // wysoki hero (telefon): efekt dopiero, gdy jego dół jest już widoczny
+    var p = c01((s - start) / Math.max(1, Math.min(h, vh)));
+    var ty = fits ? Math.min(s, h) * 0.3 : 0;
+    var key = p + ty;
+    if (key === last) return; last = key;
+    if (copy) copy.style.transform = ty ? 'translate3d(0,' + ty.toFixed(1) + 'px,0)' : '';
+    if (stage) stage.style.transform = (ty || p) ? 'translate3d(0,' + ty.toFixed(1) + 'px,0) scale(' + (1 - 0.04 * p).toFixed(4) + ')' : '';
+    if (foot) foot.style.translate = ty ? '0 ' + ty.toFixed(1) + 'px' : '';
+    if (glow) glow.style.translate = s ? '0 ' + (Math.min(s, h) * 0.14).toFixed(1) + 'px' : '';
+    dim.style.opacity = (0.62 * p * p).toFixed(3);
+    if (p >= 1) last = 1;
+  } };
+}
+
+// 2) Proces: etapy układają się w talię, z poprzednich widać nazwę i opis; cała talia odjeżdża razem
+function processDeck() {
+  var flow = document.querySelector('.process-flow');
+  if (!flow || !window.CSS || !CSS.supports || !CSS.supports('position', 'sticky')) return null;
+  var steps = Array.prototype.slice.call(flow.querySelectorAll('.process-step'));
+  if (steps.length < 2) return null;
+  var head = flow.querySelector('.process-flow-head');
+  var counter = head && head.querySelector('b');
+  var num = counter && counter.firstChild && counter.firstChild.nodeType === 3 ? counter.firstChild : null;
+  var numStart = num ? num.nodeValue : '';
+  var arrow = counter && counter.querySelector('i'), arrowStart = arrow ? arrow.textContent : '';
+  var headSlot = null;
+  if (head) { headSlot = document.createElement('div'); headSlot.className = 'deck-head-slot'; head.parentNode.insertBefore(headSlot, head); headSlot.appendChild(head); }
+  var L = steps.length - 1;
+  steps[L].classList.add('is-last');
+  var bar = null;
+  if (head) { bar = document.createElement('span'); bar.className = 'deck-bar'; bar.setAttribute('aria-hidden', 'true'); bar.appendChild(document.createElement('i')); head.insertBefore(bar, counter || null); }
+  var slots = steps.map(function (s) { var d = document.createElement('div'); d.className = 'deck-slot'; s.parentNode.insertBefore(d, s); d.appendChild(s); return d; });
+  var on = false, tops = [], nat = [], cur = -1, done = false, lastP = -1;
+
+  function reset() {
+    flow.classList.remove('deck-on', 'is-done'); flow.style.removeProperty('--hold'); flow.style.removeProperty('--deck-head');
+    slots.forEach(function (d) { d.style.height = ''; d.style.marginBottom = ''; });
+    if (headSlot) { headSlot.style.height = ''; headSlot.style.marginBottom = ''; }
+    steps.forEach(function (s) { s.style.removeProperty('--t'); s.classList.remove('is-current'); });
+    if (num) num.nodeValue = numStart;
+    if (arrow) arrow.textContent = arrowStart;
+    if (bar) bar.style.removeProperty('--p');
+    on = false; cur = -1; done = false; lastP = -1;
+  }
+  function layout() {
+    reset();
+    var vw = window.innerWidth, vh = window.innerHeight, mobile = vw <= 640;
+    var OV = 18, GAP = mobile ? 40 : 56, HOLD = mobile ? 90 : 130;
+    var headTop = mobile ? 70 : 96;
+    flow.classList.add('deck-on');
+    flow.style.setProperty('--deck-head', headTop + 'px');
+    var headH = head ? head.offsetHeight : 0, hh = head ? headH + 14 : 0;
+    var hs = steps.map(function (s) { return s.offsetHeight; });
+    // zakładka kolejnej karty nigdy nie zasłania tekstu poprzedniej (tylko jej dolny margines)
+    var ovs = steps.map(function (s) {
+      var tx = s.querySelector('.step-content') || s, sb = s.getBoundingClientRect().bottom, tb = tx.getBoundingClientRect().bottom;
+      return Math.max(6, Math.min(OV, Math.floor(sb - tb - 4)));
+    });
+    tops = []; nat = [];
+    var t = headTop + hh + 10, n = 0;
+    for (var i = 0; i <= L; i++) { tops.push(t); nat.push(n); t += hs[i] - ovs[i]; n += hs[i] + GAP; }
+    if (tops[L] + hs[L] > vh - 16) { reset(); return; }   // za niski ekran: zwykła lista
+    for (i = 0; i <= L; i++) {
+      var height = (nat[L] - nat[i]) - (tops[L] - tops[i]) + HOLD + hs[i];
+      slots[i].style.height = height + 'px';
+      slots[i].style.marginBottom = (i < L ? (hs[i] + GAP - height) : 0) + 'px';
+      steps[i].style.setProperty('--t', tops[i] + 'px');
+    }
+    if (headSlot) {   // nagłówek z paskiem postępu odjeżdża razem z talią
+      var B = tops[L] - nat[L], hsH = headTop + headH - B + HOLD + hh;
+      headSlot.style.height = hsH + 'px'; headSlot.style.marginBottom = (hh - hsH) + 'px';
+    }
+    if (arrow) arrow.textContent = '/';
+    flow.style.setProperty('--hold', HOLD + 'px');
+    on = true;
+  }
+  layout();
+  return { el: flow, layout: layout, update: function () {
+    if (!on) return;
+    var y0 = slots[0].getBoundingClientRect().top, stuck = 0;
+    for (var i = 0; i <= L; i++) if (y0 + nat[i] <= tops[i] + 0.5) stuck = i + 1;
+    var A = tops[0] - nat[0], B = tops[L] - nat[L];
+    var p = c01((A - y0) / Math.max(1, A - B));
+    if (p !== lastP && bar) { lastP = p; bar.style.setProperty('--p', p.toFixed(4)); }
+    var c = stuck - 1;
+    if (c !== cur) {
+      if (cur >= 0) steps[cur].classList.remove('is-current');
+      cur = c;
+      if (cur >= 0) steps[cur].classList.add('is-current');
+      if (num) num.nodeValue = (stuck > 0 ? (stuck < 10 ? '0' : '') + stuck : numStart.trim()) + ' ';
+    }
+    var d = stuck > L;
+    if (d !== done) { done = d; flow.classList.toggle('is-done', d); }
+  } };
+}
+
+// 3) Kompetencje na telefonie: karty układają się w talię, przykryte lekko się oddalają
+function servicesStack() {
+  var grid = document.querySelector('.services-grid');
+  if (!grid || !window.matchMedia) return null;
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.service-card'));
+  if (cards.length < 2) return null;
+  var mq = window.matchMedia('(max-width: 640px)'), on = false;
+  function layout() {
+    var want = mq.matches;
+    if (want === on) return;
+    on = want;
+    grid.classList.toggle('stack-on', on);
+    cards.forEach(function (c, i) {
+      if (on) c.style.setProperty('--i', i);
+      else { c.style.removeProperty('--i'); c.style.transform = ''; c.style.removeProperty('--dim'); }
+    });
+  }
+  layout();
+  return { el: grid, layout: layout, update: function () {
+    if (!on) return;
+    var rs = cards.map(function (c) { return c.getBoundingClientRect(); });
+    for (var i = 0; i < cards.length; i++) {
+      var k = 0;
+      if (i < cards.length - 1) { var r = rs[i], nx = rs[i + 1]; k = c01((r.bottom - nx.top) / Math.max(1, r.height - 14)); }
+      cards[i].style.transform = k > 0.001 ? 'scale(' + (1 - 0.06 * k).toFixed(4) + ')' : '';
+      cards[i].style.setProperty('--dim', (0.22 * k).toFixed(3));
+    }
+  } };
+}
+
+// 4) Yearborne: telefon, karty i orbity przesuwają się z różną prędkością; telefon pochyla się za kursorem; liczby się odliczają
+function yearborneDepth() {
+  var sec = document.querySelector('.yearborne'), vis = sec && sec.querySelector('.yearborne-visual');
+  if (!vis) return null;
+  var phone = vis.querySelector('.phone');
+  var px = 0, py = 0, last = '';
+  if (phone && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    vis.addEventListener('pointermove', function (e) {
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      var r = vis.getBoundingClientRect();
+      px = Math.max(-1, Math.min(1, (e.clientX - r.left) / r.width * 2 - 1));
+      py = Math.max(-1, Math.min(1, (e.clientY - r.top) / r.height * 2 - 1));
+      phone.style.setProperty('--rx', (-py * 6).toFixed(2) + 'deg');
+      phone.style.setProperty('--ry', (px * 8).toFixed(2) + 'deg');
+      upd(window.innerHeight);
+    });
+    vis.addEventListener('pointerleave', function () { px = py = 0; phone.style.setProperty('--rx', '0deg'); phone.style.setProperty('--ry', '0deg'); upd(window.innerHeight); });
+  }
+  // odliczanie statystyk w telefonie (raz, przy pierwszym pokazaniu)
+  var nums = Array.prototype.slice.call(vis.querySelectorAll('.game-stats i')).map(function (el) { return { el: el, to: parseInt(el.textContent, 10) }; }).filter(function (o) { return !isNaN(o.to); });
+  if (nums.length && window.IntersectionObserver) {
+    nums.forEach(function (o) { o.el.textContent = '0'; });
+    var io = new IntersectionObserver(function (en) {
+      if (!en[en.length - 1].isIntersecting) return;
+      io.disconnect();
+      var t0 = performance.now();
+      (function tick(now) {
+        var k = c01((now - t0) / 1400), e = 1 - Math.pow(1 - k, 3);
+        nums.forEach(function (o, i) { var kk = c01(e * 1.08 - i * 0.04); o.el.textContent = String(Math.round(o.to * kk)); });
+        if (k < 1) requestAnimationFrame(tick); else nums.forEach(function (o) { o.el.textContent = String(o.to); });
+      })(t0);
+    }, { threshold: 0.55 });
+    io.observe(vis.querySelector('.game-stats') || vis);
+  }
+  function upd(vh) {
+    var r = sec.getBoundingClientRect();
+    var q = Math.max(-1, Math.min(1, ((r.top + r.height / 2) - vh / 2) / (vh / 2 + r.height / 2)));
+    var key = q.toFixed(4) + px.toFixed(3) + py.toFixed(3);
+    if (key === last) return; last = key;
+    var st = vis.style;
+    st.setProperty('--py', (q * 26).toFixed(1) + 'px');
+    st.setProperty('--fy1', (q * 70 + py * 6).toFixed(1) + 'px');
+    st.setProperty('--fx1', (px * -10).toFixed(1) + 'px');
+    st.setProperty('--fy2', (q * 104 + py * 9).toFixed(1) + 'px');
+    st.setProperty('--fx2', (px * -14).toFixed(1) + 'px');
+    st.setProperty('--oy1', (q * -34).toFixed(1) + 'px');
+    st.setProperty('--oy2', (q * -18).toFixed(1) + 'px');
+    st.setProperty('--gy', (q * 14).toFixed(1) + 'px');
+  }
+  return { el: sec, update: upd };
+}
+
 function init() {
   var render = /[?&]asci-render\b/.test(location.search);
   if (!REDUCE || render) {
@@ -450,7 +661,8 @@ function init() {
   smartHeader();
   backToTop();
   privacyPage();
+  layers();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-window.ASCI_SITE = { version: 'r7', mount: mount };
+window.ASCI_SITE = { version: 'r8', mount: mount };
 })();
