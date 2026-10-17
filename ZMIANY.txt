@@ -1,5 +1,21 @@
 A-SCI Paweł Adamski - potwierdzenie zawartości pakietu
-Wersja: 2026-08-11-r5
+Wersja: 2026-10-16-r6
+
+Zmiany w wersji r6:
+- animowane, wektorowe logo A-SCI PROJECTS w lewym górnym rogu (falowanie i połysk, bez białej ramki)
+- animowany pasek nawigacji: linia ze światłem, płynne wejście menu, połysk na przycisku „Poznaj A-SCI”
+- szklany pasek nawigacji przyklejony do góry ekranu przy przewijaniu w górę, chowany przy przewijaniu w dół
+- przycisk „na górę” w prawym dolnym rogu: falujące logo na granatowej karcie, po najechaniu strzałka w górę i napis „Na górę” (PL), „Back to top” (EN), „Haut de page” (FR)
+- na telefonach strzałka w przycisku „na górę” jest widoczna stale
+- logo w stopce przenosi na początek strony i pokazuje strzałkę po najechaniu
+- polityki prywatności: granatowe logo wektorowe i przycisk „na górę”
+- nagłówek i opis na górze strony nie nachodzą na „Mapę dostarczania produktu” (laptopy 1180–1440 px)
+- przycisk „Poznaj Yearborne” nie nachodzi na grafikę na telefonach (390–430 px)
+- „Mapa dostarczania produktu”: napisy mieszczą się w kafelkach, etykiety między kafelkami są w całości widoczne
+- ikona Yearborne 58 KB zamiast 2,7 MB
+- statyczne logo przy ustawieniu „ogranicz ruch” i na urządzeniach bez WebGL
+- nowe pliki: assets/a-sci-premium.js, assets/a-sci-logo-white.svg, assets/a-sci-logo-navy.svg, assets/yearborne-icon-384.jpg
+- kontrola wizualna: PL, EN, FR przy szerokościach 360–1920 px, także z fontem Georgia (Windows, macOS)
 
 W tej wersji znajdują się:
 - strona polska: /index.html
@@ -10,17 +26,11 @@ W tej wersji znajdują się:
 - statyczna polityka prywatności FR: /fr/privacy-policy/index.html
 - osobny panel Testy i QA z czterema obszarami weryfikacji
 - właściwa ikona domku Yearborne
-- powiększone i estetycznie wykadrowane logo A-SCI PROJECTS
-- całkowicie przebudowana mapa dostarczania produktu z czytelnym kierunkiem przepływu
-- nowe, spójne wizualnie strzałki pomiędzy etapami procesu
-- przesunięte i przeprojektowane panele przy wizualizacji Yearborne
-- usunięty dodatkowy opis obok przycisku polityki prywatności
+- przebudowana mapa dostarczania produktu z czytelnym kierunkiem przepływu
+- spójne wizualnie strzałki pomiędzy etapami procesu
+- przeprojektowane panele przy wizualizacji Yearborne
 - dopracowana stopka z nawigacją, kontaktem i wyborem języka
-- przebudowane proporcje sekcji Testy i QA: treść jest pierwszoplanowa, a panel pozostaje czytelnym dowodem kompetencji
-- zwiększona czytelność opisów i etykiet w panelu QA
-- jeden wspólny kadr logo A-SCI Projects w nagłówku, stopce i nagłówkach polityki prywatności
-- nowe hasło Yearborne: „Jedna decyzja. Inna przyszłość.” wraz z wersjami EN i FR
+- sekcja Testy i QA z pierwszoplanową treścią i czytelnym panelem
+- hasło Yearborne: „Jedna decyzja. Inna przyszłość.” wraz z wersjami EN i FR
 - subtelna poświata pod telefonem w prezentacji Yearborne
-- nowy favicon „A–” nawiązujący bezpośrednio do logo A-SCI
-- kontrola wizualna na szerokim ekranie i przy szerokości telefonu 390 px
-- skorygowane centrowanie logo prawo-lewo bez zmiany kadrowania góra-dół
+- favicon „A–” nawiązujący bezpośrednio do logo A-SCI
