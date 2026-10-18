@@ -1,5 +1,9 @@
 A-SCI Paweł Adamski - potwierdzenie zawartości pakietu
-Wersja: 2026-10-17-r8
+Wersja: 2026-10-18-r9
+
+Poprawka w wersji r9:
+- światło na linii pod paskiem nawigacji nie wychodzi poza linię – strona nie jest już szersza od ekranu (bez białego pasa z prawej)
+- zabezpieczenie przed poszerzaniem strony w poziomie (strona główna i polityka prywatności, PL, EN, FR)
 
 Zmiany w wersji r8 (strona główna PL, EN, FR – warstwy):
 - sekcja Kompetencje wjeżdża na nagłówek strony jak karta; nagłówek lekko się oddala i przyciemnia

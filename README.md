@@ -1,6 +1,6 @@
 # A-SCI Paweł Adamski - strona firmowa
 
-Wersja pakietu: **2026-10-17-r8**
+Wersja pakietu: **2026-10-18-r9**
 
 Pakiet jest gotowy do publikacji jako statyczna strona GitHub Pages pod adresem `https://paulaski.github.io/`.
 
@@ -14,7 +14,12 @@ Pakiet jest gotowy do publikacji jako statyczna strona GitHub Pages pod adresem 
 
 Nie przesyłaj samego archiwum ZIP. Strona nie wymaga Node.js, Reacta ani procesu budowania.
 
-Arkusz stylów i skrypt mają w adresie dopisek `?v=r8`, więc odwiedzający od razu dostaną nową wersję. Jeśli po publikacji widzisz starą wersję, odśwież stronę klawiszami Ctrl+F5 (Mac: Cmd+Shift+R).
+Arkusz stylów i skrypt mają w adresie dopisek `?v=r9`, więc odwiedzający od razu dostaną nową wersję. Jeśli po publikacji widzisz starą wersję, odśwież stronę klawiszami Ctrl+F5 (Mac: Cmd+Shift+R).
+
+## Poprawka w r9
+
+- światło przesuwające się po linii pod paskiem nawigacji zatrzymuje się na końcu linii i nie poszerza już strony (znika biały pas z prawej strony i przesuwanie strony w bok),
+- dodatkowe zabezpieczenie: żaden element nie może poszerzyć strony w poziomie.
 
 ## Nowości w r8 – strona główna, warstwy
 
